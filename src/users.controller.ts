@@ -1,10 +1,11 @@
-import {Controller,Get,Post,Put,Delete,Patch,Req} from '@nestjs/common';
+import {Controller,Get,Post,Put,Delete,Patch,Req,HttpCode,HttpStatus} from '@nestjs/common';
 import { Request, response } from 'express';
 import {of} from 'rxjs';
 @Controller('/user')
 export class UsersController{
 
     @Get('/profile')
+    @HttpCode(HttpStatus.NO_CONTENT)
     async getProfile(){
         return new Promise((resolve,Reject)=>{
             resolve( {
