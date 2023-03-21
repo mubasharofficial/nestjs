@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { UsersController } from './users.controller';
+import { VideoController } from './Video.controller';
 @Module({
-  controllers: [UsersController],
+  controllers: [VideoController],
 })
 export class AppModule {}
