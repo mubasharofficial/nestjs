@@ -1,6 +1,6 @@
 import { Controller, Get, HostParam,Ip} from "@nestjs/common";
 
-// @Controller({path:'/users',host:':app.domain.com'})
+// @Controller({path:'/users',host:':app.domain.com'}) /** how to strict domain which could access it */
 @Controller({path:'/users'})
 export class UserController{
 @Get()
@@ -10,9 +10,9 @@ getUser(@HostParam('domain') params:Record<string, any>)
 } 
 
 @Get('/u2')
-get2User(@Ip() ip:string)
-{
-  return 'return: '+ ip;
-}
+  get2User(@Ip() ip:string) /** access request IP ADDRESS */
+  {
+      return 'return: '+ ip;
+  }
 
 }
