@@ -1,44 +1,27 @@
-import { Controller, Get, Inject, Optional } from "@nestjs/common";
-import { UsersStore } from "./store/users.store";
-import { Store } from "./store/store";
-@Controller({ path: '/users' })
+import { Controller,Inject} from "@nestjs/common";
+import { Config } from "./config";
+@Controller('/user')
 export class UsersController {
-  /*
-    constructor(private store: UsersStore)
-    {
-          console.log('userStore',store)
-      }
+ /** 
+    constructor(@Inject('DATABASE_NAME') private dbName:string){
+    console.log('DATABASE',dbName)
+  }
+ */
 
-  */
+/** 
+  constructor(@Inject('MAIL') private email:string[]){
+    console.log('EmailList',email)
+  }
+*/
 
-  /*
-      constructor(@Inject(UsersStore) private store: UsersStore) 
-      {
-          console.log('userStore',store)
-      }
+/**
+constructor(@Inject('ENV_CONFIG') private config:Record<string,any>){
+  console.log('ENV_CONFIG',this.config)
+}
+*/
 
-   */
-  
-
-  /*
-    constructor(@Optional() private store: UsersStore) 
-    {
-         console.log('userStore',store)
-    }
-  */
-
-    /** Please Note @Inject Decorater is than used when provider name and class name is different */
- /* 
- constructor(@Inject('STORE') private store: UsersStore) { 
-    console.log('userStore', store)
-  } 
-
-  */
-
-  /** that is case us used to when we use injection token other class */
-  constructor(private store: Store) { 
-    console.log('userStore', store)
-
-  } 
+constructor( private config:Config){
+  console.log('ENV_CONFIG',this.config)
+}
 
 }
