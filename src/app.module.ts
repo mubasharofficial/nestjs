@@ -1,11 +1,10 @@
 import { Module } from '@nestjs/common';
 import { BehaviorSubject, ReplaySubject } from 'rxjs';
-import { UsersStore } from './users.store';
 import { UsersController } from './users.controller';
-import { AlbumController } from './album.controller';
+import { UsersService } from './users.service';
 
 @Module({
-  controllers: [UsersController,AlbumController],
-  providers:[UsersStore]
+  controllers: [UsersController],
+  providers:[UsersService]
 })
 export class AppModule { }
