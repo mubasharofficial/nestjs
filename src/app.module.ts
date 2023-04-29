@@ -1,10 +1,11 @@
-import { Module } from '@nestjs/common';
-import { BehaviorSubject, ReplaySubject } from 'rxjs';
-import { UsersController } from './users.controller';
-import { UsersService } from './users.service';
+import { Module } from "@nestjs/common";
+import { EmployersModule } from "./employers/employers.module";
+import { UsersModule } from "./users/users.module";
+import { JobsModule } from "./jobs/jobs.module";
 
 @Module({
-  controllers: [UsersController],
-  providers:[UsersService]
+  imports: [UsersModule, JobsModule, EmployersModule],
+  controllers: [],
+  providers: [],
 })
-export class AppModule { }
+export class AppModule {}
