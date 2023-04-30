@@ -1,16 +1,16 @@
 import { Module } from "@nestjs/common";
-import { JobsController } from "./controllers/jobs.controller";
-import { OfficeController } from "./controllers/office.controller";
-import { JobsService } from "./services/jobs.service";
-
-import { JobsApplicationsModule } from "./jobs-applications/jobs-applications.module";
+import { CacheStoreModule, StoreType } from "src/cache-store";
+import { JobsService } from "./jobs.service";
 
 @Module({
-  // NOTE: `JobsApplicationsService` can be injected wherever `JobsModule` is imported
-  // because `JobsModule` exports the `JobsApplicationsModule`
-  imports: [JobsApplicationsModule],
-  controllers: [JobsController, OfficeController],
+  imports: [
+    // create a dynamic module with below option
+    CacheStoreModule.register({
+      storeName: "jobs",
+      storeType: StoreType.FILE,
+      storeDir: __dirname, // dist folder
+    }),
+  ],
   providers: [JobsService],
-  exports: [JobsService, JobsApplicationsModule],
 })
 export class JobsModule {}

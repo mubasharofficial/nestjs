@@ -1,11 +1,14 @@
 import { Module } from "@nestjs/common";
-import { AccountsController } from "./controllers/accounts.controller";
-import { UsersController } from "./controllers/users.controller";
-import { UsersService } from "./services/users.service";
+import { CacheStoreModule } from "src/cache-store";
+import { UsersService } from "./users.service";
 
 @Module({
-  controllers: [UsersController, AccountsController],
+  imports: [
+    // create a dynamic module with below option
+    CacheStoreModule.register({
+      storeName: "users",
+    }),
+  ],
   providers: [UsersService],
-  exports: [UsersService],
 })
 export class UsersModule {}
