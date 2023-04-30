@@ -3,12 +3,7 @@ import { CacheStoreModule } from "src/cache-store";
 import { UsersService } from "./users.service";
 
 @Module({
-  imports: [
-    // create a dynamic module with below option
-    CacheStoreModule.register({
-      storeName: "users",
-    }),
-  ],
+  imports: [CacheStoreModule.forFeature("users")],
   providers: [UsersService],
 })
 export class UsersModule {}

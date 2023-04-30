@@ -1,9 +1,9 @@
-import { Injectable } from "@nestjs/common";
-import { CacheStoreService } from "./cache-store";
+import { Inject, Injectable } from "@nestjs/common";
+import { Store } from "./cache-store";
 
 @Injectable()
 export class AppService {
-  constructor(private store: CacheStoreService) {
+  constructor(@Inject("DEFAULT_CACHE-STORE") private store: Store) {
     console.log(`[AppService]:`, this.store);
   }
 }
