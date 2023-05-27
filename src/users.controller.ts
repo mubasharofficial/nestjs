@@ -1,4 +1,4 @@
-import { Controller, Inject,Get, ConsoleLogger,Body,Post ,Param,Put,Delete} from "@nestjs/common";
+import { Controller, Inject,Get, ConsoleLogger,Body,Post ,Param,Put,Delete, ParseIntPipe, HttpStatus, Query, UsePipes} from "@nestjs/common";
 import { UsersService } from "./users.service";
 // import { UsersStore } from "./users.store";
 // import { Subject } from 'rxjs';
@@ -19,7 +19,24 @@ export class UsersController {
   }
 
   @Get(':id')
-  findUser(@Param('id') id: number) {
+  findUser(@Param('id',ParseIntPipe) id: number) {
+    console.log(typeof id);
+    this.usersService.getUser(id);
+  }
+
+  @Get('salary/:id')
+  findsallery(@Param('id',new ParseIntPipe({errorHttpStatusCode:HttpStatus.NOT_ACCEPTABLE})) id: number) {
+    console.log(typeof id);
+    this.usersService.getUser(id);
+  }
+
+  @Get('salary2/:id')
+  // @UsePipes(ParseIntPipe)
+  findsallery2(@Param('id',ParseIntPipe) id: number, @Query("increment",ParseIntPipe) inc:number){
+    
+    console.log(typeof id);
+    console.log(typeof inc);
+
     this.usersService.getUser(id);
   }
 
