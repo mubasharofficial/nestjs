@@ -1,4 +1,4 @@
-import { Controller, Inject,Get, ConsoleLogger,Body,Post ,Param,Put,Delete, ParseIntPipe, HttpStatus, Query, UsePipes} from "@nestjs/common";
+import { Controller, Inject,Get, ConsoleLogger,Body,Post ,Param,Put,Delete, ParseIntPipe, HttpStatus, Query, UsePipes, ParseUUIDPipe, HttpException, BadRequestException, NotFoundException, UnauthorizedException} from "@nestjs/common";
 import { UsersService } from "./users.service";
 // import { UsersStore } from "./users.store";
 // import { Subject } from 'rxjs';
@@ -20,36 +20,35 @@ export class UsersController {
 
   @Get(':id')
   findUser(@Param('id',ParseIntPipe) id: number) {
-    console.log(typeof id);
-    this.usersService.getUser(id);
+    if(id<=0){
+      // throw new Error(); //that will handle problem himself
+
+      // throw new HttpException("Invalid id",HttpStatus.BAD_REQUEST);
+
+    //  throw new BadRequestException("Invalid Id")
+    //  throw new BadRequestException("Invalid Id",'message id should e heigher than 0');
+      // throw new BadRequestException(
+      //   {
+      //   error:"Invalid id",
+      //   messaage:"Id must be higher than 00",
+      //   timestamp:Date.now(),
+      //   data:id
+      // });
+
+     /* throw new HttpException({
+        error: "Invalid id",
+        message: "Id must be higher than 0",
+        timestamps:Date.now(),
+      },HttpStatus.BAD_REQUEST);
+      */
+
+      // throw new NotFoundException();
+      // throw new UnauthorizedException();
+
+    } 
+    return {success:true,id};
   }
 
-  @Get('salary/:id')
-  findsallery(@Param('id',new ParseIntPipe({errorHttpStatusCode:HttpStatus.NOT_ACCEPTABLE})) id: number) {
-    console.log(typeof id);
-    this.usersService.getUser(id);
-  }
-
-  @Get('salary2/:id')
-  // @UsePipes(ParseIntPipe)
-  findsallery2(@Param('id',ParseIntPipe) id: number, @Query("increment",ParseIntPipe) inc:number){
-    
-    console.log(typeof id);
-    console.log(typeof inc);
-
-    this.usersService.getUser(id);
-  }
-
-  @Put(':id')
-  updateUser(@Param('id') id: number, @Body() updateUserDto: CreateUserDTO) {
-    this.usersService.updateUser(+id, updateUserDto);
-    return { message: 'USER UPDATED' };
-  }
-  @Delete(':id')
-  deleteUser(@Param('id') id: number) {
-    this.usersService.deleteUser(id);
-    return { message: 'USER DELETED' }
-  }
 
 
 }
